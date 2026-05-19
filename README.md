@@ -1,1 +1,1 @@
-https://aleriv1.github.io/result-react-server-requests-task2/
+https://aleriv1.github.io/react-redux-task2-2/
