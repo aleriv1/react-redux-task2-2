@@ -1,14 +1,11 @@
 import { Todo } from "../Todo/Todo";
 import styles from "./TodoList.module.scss";
+import { useSelector } from "react-redux";
 
-export const TodoList = ({
-  todos,
-  editTodo,
-  deleteTodo,
-  changeTodoLabel,
-  searchQuery,
-  isSortEnabled,
-}) => {
+export const TodoList = ({ searchQuery }) => {
+  const todos = useSelector((state) => state.todos.items);
+  const isSortEnabled = useSelector((state) => state.sort.isSortEnabled);
+
   const filtered = todos.filter(({ todoLabel }) => {
     return todoLabel.toLowerCase().includes(searchQuery);
   });
@@ -20,13 +17,7 @@ export const TodoList = ({
   return prepared.length ? (
     <ul className={styles.list}>
       {prepared.map((todo) => (
-        <Todo
-          key={todo.id}
-          {...todo}
-          editTodo={editTodo}
-          deleteTodo={deleteTodo}
-          changeTodoLabel={changeTodoLabel}
-        />
+        <Todo key={todo.id} {...todo} />
       ))}
     </ul>
   ) : (

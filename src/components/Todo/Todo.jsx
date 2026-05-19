@@ -1,15 +1,11 @@
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { editTodo, deleteTodo, changeTodoLabel } from "../../store/actions";
 import styles from "./Todo.module.scss";
 
-export const Todo = ({
-  todoLabel,
-  id,
-  editing,
-  editTodo,
-  deleteTodo,
-  changeTodoLabel,
-}) => {
+export const Todo = ({ todoLabel, id, editing }) => {
   const [todoLabelInput, setTodoLabelInput] = useState(todoLabel);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setTodoLabelInput(todoLabel);
@@ -23,7 +19,7 @@ export const Todo = ({
       return;
     }
 
-    changeTodoLabel(id, trimmedValue);
+    dispatch(changeTodoLabel(id, trimmedValue));
   };
 
   const onTodoLabelChange = (e) => {
@@ -31,7 +27,7 @@ export const Todo = ({
   };
 
   const toggleEditing = () => {
-    editTodo(id, !editing);
+    dispatch(editTodo(id, !editing));
   };
 
   return (
@@ -49,7 +45,7 @@ export const Todo = ({
             </button>
             <button
               className={styles.icon}
-              onClick={() => deleteTodo(id)}
+              onClick={() => dispatch(deleteTodo(id))}
               type="button"
             >
               Удалить

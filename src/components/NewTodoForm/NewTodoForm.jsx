@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addNewTodo } from "../../store/actions";
 import styles from "./NewTodoForm.module.scss";
 
-export const NewTodoForm = ({ addNewTodo }) => {
+export const NewTodoForm = () => {
   const [todoLabel, setTodoLabel] = useState("");
+  const dispatch = useDispatch();
 
   const onNewTodoLableChange = (e) => {
     setTodoLabel(e.target.value);
@@ -16,7 +19,7 @@ export const NewTodoForm = ({ addNewTodo }) => {
       return;
     }
 
-    addNewTodo(trimmedLabel);
+    dispatch(addNewTodo(trimmedLabel));
     setTodoLabel("");
   };
 
